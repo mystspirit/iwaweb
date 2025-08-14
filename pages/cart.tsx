@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
@@ -61,9 +62,12 @@ export default function Cart() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Your cart is empty</h3>
               <p className="text-gray-600 mb-8">Discover our beautiful wall art collection and add some pieces to your cart.</p>
-              <Button variant="primary" size="lg">
-                <a href="/products">Browse Products</a>
-              </Button>
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-primary-600 to-secondary-600 text-white hover:from-primary-700 hover:to-secondary-700 focus:ring-primary-500 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 px-6 py-3 text-lg"
+              >
+                Browse Products
+              </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
