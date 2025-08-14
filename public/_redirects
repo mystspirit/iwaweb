@@ -1,0 +1,3 @@
+# Fallback for Next.js routing
+/api/* /.netlify/functions/nextjs/:splat 200
+/* /index.html 200
