@@ -130,3 +130,17 @@ body {
   color: #111;
   font-family: 'Inter', sans-serif;
 }
+
+/* Base resets to prevent oversized icons and default blue links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Make SVG icons a sensible default size; Tailwind classes will still override */
+svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
