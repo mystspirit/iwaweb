@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '../../context/CartContext';
+import Footer from '../../components/Footer';
 
 const products = [
   {
@@ -185,12 +186,20 @@ export default function Products() {
                   ))}
                 </div>
                 
-                <button 
-                  onClick={() => addToCart({...product, quantity: 1})}
-                  className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold rounded-lg hover:from-indigo-600 hover:to-purple-600 transition duration-300"
-                >
-                  Add to Cart
-                </button>
+                <div className="flex gap-3">
+                  <Link 
+                    href={`/products/${product.id}`}
+                    className="flex-1 py-3 px-4 border-2 border-primary-500 text-primary-600 font-bold rounded-lg hover:bg-primary-50 transition duration-300 text-center"
+                  >
+                    View Details
+                  </Link>
+                  <button 
+                    onClick={() => addToCart({...product, quantity: 1})}
+                    className="flex-1 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-bold rounded-lg hover:from-primary-600 hover:to-secondary-600 transition duration-300"
+                  >
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -221,6 +230,7 @@ export default function Products() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
