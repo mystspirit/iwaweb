@@ -36,6 +36,7 @@ export const handler: Handler = async (event) => {
 
     return { statusCode: 200, body: JSON.stringify({ ok: true, admin }) };
   } catch (e) {
+    console.error('admin-upsert error', e);
     return { statusCode: 500, body: JSON.stringify({ error: 'internal_error' }) };
   } finally {
     await prisma.$disconnect();
