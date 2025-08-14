@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import Button from '../components/Button';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 
