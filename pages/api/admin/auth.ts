@@ -12,14 +12,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
   const { email, password } = req.body;
+  console.log('Login attempt for email:', email);
+  
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password required' });
   }
+  
   const admin = await prisma.admin.findUnique({ where: { email } });
+  console.log('Admin found:', admin ? 'yes' : 'no');
+  
   if (!admin) {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
+  
   const valid = await bcrypt.compare(password, admin.passwordHash);
+  console.log('Password valid:', valid);
+  
   if (!valid) {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
