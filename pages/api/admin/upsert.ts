@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       where: { email },
       update: { passwordHash: hash },
       create: { email, passwordHash: hash },
-      select: { id: true, email: true, createdAt: true },
+      select: { id: true, email: true },
     });
 
     return res.status(200).json({ ok: true, admin: result });
