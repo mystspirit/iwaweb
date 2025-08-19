@@ -27,12 +27,26 @@ export const handler: Handler = async (event) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    const admin = await prisma.admin.upsert({
+    // Check if admin exists
+    let admin = await prisma.admin.findFirst({
       where: { email },
-      update: { passwordHash: hash },
-      create: { email, passwordHash: hash },
       select: { id: true, email: true },
     });
+
+    if (admin) {
+      // Update existing admin
+      admin = await prisma.admin.update({
+        where: { id: admin.id },
+        data: { passwordHash: hash },
+        select: { id: true, email: true },
+      });
+    } else {
+      // Create new admin
+      admin = await prisma.admin.create({
+        data: { email, passwordHash: hash },
+        select: { id: true, email: true },
+      });
+    }
 
     return { statusCode: 200, body: JSON.stringify({ ok: true, admin }) };
   } catch (e) {

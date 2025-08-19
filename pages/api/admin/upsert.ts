@@ -31,12 +31,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const hash = await bcrypt.hash(password, 10);
 
-    const result = await prisma.admin.upsert({
+    // Check if admin exists
+    let result = await prisma.admin.findFirst({
       where: { email },
-      update: { passwordHash: hash },
-      create: { email, passwordHash: hash },
       select: { id: true, email: true },
     });
+
+    if (result) {
+      // Update existing admin
+      result = await prisma.admin.update({
+        where: { id: result.id },
+        data: { passwordHash: hash },
+        select: { id: true, email: true },
+      });
+    } else {
+      // Create new admin
+      result = await prisma.admin.create({
+        data: { email, passwordHash: hash },
+        select: { id: true, email: true },
+      });
+    }
 
     return res.status(200).json({ ok: true, admin: result });
   } catch (err) {
