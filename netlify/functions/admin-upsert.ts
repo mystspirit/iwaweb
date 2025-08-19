@@ -31,7 +31,7 @@ export const handler: Handler = async (event) => {
       where: { email },
       update: { passwordHash: hash },
       create: { email, passwordHash: hash },
-      select: { id: true, email: true, createdAt: true },
+      select: { id: true, email: true },
     });
 
     return { statusCode: 200, body: JSON.stringify({ ok: true, admin }) };
